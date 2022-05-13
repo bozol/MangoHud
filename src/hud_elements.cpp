@@ -134,6 +134,13 @@ void HudElements::version(){
     }
 }
 
+void ImguiNextColumnOrNewRow()
+{
+    ImGui::TableNextColumn();
+    if (ImGui::TableGetColumnIndex() == 0 && ImGui::TableGetColumnCount() > 1)
+        ImGui::TableNextColumn();
+}
+
 void HudElements::gpu_stats(){
     if (HUDElements.params->enabled[OVERLAY_PARAM_ENABLED_gpu_stats]){
         ImGui::TableNextRow(); ImGui::TableNextColumn();
@@ -166,25 +173,35 @@ void HudElements::gpu_stats(){
             // ImGui::SameLine(150);
             // ImGui::Text("%s", "%");
         }
+
         if (HUDElements.params->enabled[OVERLAY_PARAM_ENABLED_gpu_temp]){
-            ImGui::TableNextColumn();
+            ImguiNextColumnOrNewRow();
             right_aligned_text(text_color, HUDElements.ralign_width, "%i", gpu_info.temp);
             ImGui::SameLine(0, 1.0f);
             ImGui::Text("°C");
+            if (gpu_info.temp_j > -1) {
+                ImguiNextColumnOrNewRow();
+                right_aligned_text(text_color, HUDElements.ralign_width, "%i", gpu_info.temp_j);
+                ImGui::SameLine(0, 1.0f);
+                ImGui::Text("°C");
+                ImGui::SameLine(0, 1.0f);
+                ImGui::PushFont(HUDElements.sw_stats->font1);
+                ImGui::Text("Tj");
+                ImGui::PopFont();
+            }
         }
-        if (HUDElements.params->enabled[OVERLAY_PARAM_ENABLED_gpu_core_clock] || HUDElements.params->enabled[OVERLAY_PARAM_ENABLED_gpu_power]){
-            ImGui::TableNextRow(); ImGui::TableNextColumn();
-        }
+
         if (HUDElements.params->enabled[OVERLAY_PARAM_ENABLED_gpu_core_clock]){
-            ImGui::TableNextColumn();
+            ImguiNextColumnOrNewRow();
             right_aligned_text(text_color, HUDElements.ralign_width, "%i", gpu_info.CoreClock);
             ImGui::SameLine(0, 1.0f);
             ImGui::PushFont(HUDElements.sw_stats->font1);
             ImGui::Text("MHz");
             ImGui::PopFont();
         }
+
         if (HUDElements.params->enabled[OVERLAY_PARAM_ENABLED_gpu_power]) {
-            ImGui::TableNextColumn();
+            ImguiNextColumnOrNewRow();
 #ifdef MANGOAPP
             right_aligned_text(text_color, HUDElements.ralign_width, "%.1f", gpu_info.powerUsage);
 #else
