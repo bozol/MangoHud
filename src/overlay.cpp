@@ -170,7 +170,7 @@ void update_hud_info(struct swapchain_stats& sw_stats, struct overlay_params& pa
             now - sw_stats.last_present_time;
    }
 
-   frametime = (now - sw_stats.last_present_time) / sw_stats.n_frames_since_update;
+   frametime = (now - sw_stats.last_present_time) / 1000;
 
    if (elapsed >= params.fps_sampling_period) {
       if (!hw_update_thread)
