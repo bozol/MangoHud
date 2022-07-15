@@ -89,7 +89,7 @@ void update_hw_info(struct swapchain_stats& sw_stats, struct overlay_params& par
 
    currentLogData.cpu_load = cpuStats.GetCPUDataTotal().percent;
    currentLogData.cpu_temp = cpuStats.GetCPUDataTotal().temp;
-   currentLogData.cpu_temp = cpuStats.GetCPUDataTotal().cpu_mhz;
+   currentLogData.cpu_freq = cpuStats.GetCPUDataTotal().cpu_mhz;
    // Save data for graphs
    if (graph_data.size() > 50)
       graph_data.erase(graph_data.begin());
