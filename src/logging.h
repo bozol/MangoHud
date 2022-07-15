@@ -20,6 +20,7 @@ struct logData{
   float cpu_load;
   int gpu_load;
   int cpu_temp;
+  int cpu_freq;
   int gpu_temp;
   int gpu_core_clock;
   int gpu_mem_clock;
