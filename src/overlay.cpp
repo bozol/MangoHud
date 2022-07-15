@@ -89,7 +89,7 @@ void update_hw_info(struct swapchain_stats& sw_stats, struct overlay_params& par
 
    currentLogData.cpu_load = cpuStats.GetCPUDataTotal().percent;
    currentLogData.cpu_temp = cpuStats.GetCPUDataTotal().temp;
-   currentLogData.cpu_temp = cpuStats.GetCPUDataTotal().cpu_mhz;
+   currentLogData.cpu_temp = cpuStats.GetCPUDataTotal().;
    // Save data for graphs
    if (graph_data.size() > 50)
       graph_data.erase(graph_data.begin());
@@ -170,7 +170,7 @@ void update_hud_info(struct swapchain_stats& sw_stats, struct overlay_params& pa
             now - sw_stats.last_present_time;
    }
 
-   frametime = (now - sw_stats.last_present_time) / 1000;
+   frametime = (now - sw_stats.last_present_time) / sw_stats.n_frames_since_update;
 
    if (elapsed >= params.fps_sampling_period) {
       if (!hw_update_thread)
